@@ -1,0 +1,8 @@
+To run the program as-is use:
+mvn integration-test -Pdesktop
+
+To create a runnable jar file for the desktop, run:
+mvn -Pdesktop package
+
+to run the jar use:
+java -jar TileMapper-desktop-1.0-jar-with-dependencies.jar
