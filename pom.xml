@@ -9,11 +9,8 @@
 	<name>TileMapper Parent</name>
 
 	<properties>
-		<android.version>4.1.1.4</android.version>
-		<android.maven.version>3.8.1</android.maven.version>
 		<gwt.version>2.6.0</gwt.version>
 		<gwt.maven.version>2.6.0</gwt.maven.version>
-		<java.main.class>main.java.TileMapper.core.TileMapper</java.main.class>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -23,22 +20,6 @@
 				<artifactId>gdx</artifactId>
 				<version>1.2.0</version>
 			</dependency>
-
-			<!-- android-specific dependencies -->
-			<dependency>
-				<groupId>com.badlogicgames.gdx</groupId>
-				<artifactId>gdx-backend-android</artifactId>
-				<version>1.2.0</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.badlogicgames.gdx</groupId>
-				<artifactId>gdx-platform</artifactId>
-				<version>1.2.0</version>
-				<classifier>natives-armeabi</classifier>
-				<scope>provided</scope>
-			</dependency>
-
 
 			<!-- desktop-specific dependencies -->
 			<dependency>
@@ -85,13 +66,6 @@
 				<version>1.2.0</version>
 			</dependency>
 
-			<!-- ios-specific dependencies -->
-			<!-- requires robovm upgrades -->
-			<dependency>
-				<groupId>com.badlogic.gdx</groupId>
-				<artifactId>gdx-backend-ios</artifactId>
-				<version>1.2.0</version>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -138,24 +112,6 @@
 			<id>desktop</id>
 			<modules>
 				<module>desktop</module>
-			</modules>
-		</profile>
-		<profile>
-			<id>android</id>
-			<modules>
-				<module>android</module>
-			</modules>
-		</profile>
-		<profile>
-			<id>html</id>
-			<modules>
-				<module>html</module>
-			</modules>
-		</profile>
-		<profile>
-			<id>ios</id>
-			<modules>
-				<module>ios</module>
 			</modules>
 		</profile>
 	</profiles>
