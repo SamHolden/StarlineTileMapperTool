@@ -29,6 +29,7 @@ public class TileMapper implements ApplicationListener {
 	        File file = Gdx.files.internal("assets/dungeon_tiles.xml").file();
 	        Document doc = builder.parse(file);
 	        // Do something with the document here.
+
 	    } 
 	    catch (ParserConfigurationException e) 
 	    {
@@ -50,7 +51,7 @@ public class TileMapper implements ApplicationListener {
 
 	@Override
 	public void render () {
-		
+		Gdx.app.log("tag", "more tag");
 	}
 
 	@Override
