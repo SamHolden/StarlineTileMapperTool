@@ -7,6 +7,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 
 import TileMapper.core.util.XMLUtil;
+import TileMapper.core.domain.Tile;
 
 import java.net.URL;
 import java.net.MalformedURLException;
