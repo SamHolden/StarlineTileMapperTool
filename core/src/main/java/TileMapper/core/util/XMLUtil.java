@@ -1,5 +1,7 @@
 package TileMapper.core.util;
 
-public class XMLUtil {
+public class XMLUtil
+{
+
 
 }
