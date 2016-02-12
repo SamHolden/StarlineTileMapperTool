@@ -1,5 +1,7 @@
 <dungeon_tiles>
-	<dungeon_tile>
-	
+	<dungeon_tile id="void">
+		<texture_id>void</texture_id>
+		<tile_type>void</tile_type>
+		<blocking>1</blocking>
 	</dungeon_tile>
 </dungeon_tiles>

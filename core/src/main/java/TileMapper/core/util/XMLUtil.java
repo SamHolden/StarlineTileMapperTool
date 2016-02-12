@@ -8,10 +8,15 @@ import org.dom4j.io.SAXReader;
 
 public class XMLUtil
 {
-	public static Document parseXML(URL url) throws DocumentException
+	public static Document loadXMLDocumentL(URL url) throws DocumentException
 	{
 		SAXReader reader = new SAXReader();
         Document document = reader.read(url);
         return document;
+	}
+	
+	public static List<T> parseXML()
+	{
+		
 	}
 }

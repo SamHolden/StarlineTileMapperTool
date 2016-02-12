@@ -14,14 +14,15 @@ import java.net.MalformedURLException;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 
-public class TileMapper implements ApplicationListener {
+public class TileMapper implements ApplicationListener 
+{
 
 	@Override
 	public void create () 
 	{
 		try
 		{
-			Document doc = XMLUtil.parseXML(new URL("assets/dungeon_tiles.xml"));
+			Document doc = XMLUtil.loadXMLDocument(new URL("assets/dungeon_tiles.xml"));
 		}
 		catch(MalformedURLException e)
 		{
