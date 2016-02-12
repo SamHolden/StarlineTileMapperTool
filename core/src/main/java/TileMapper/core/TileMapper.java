@@ -6,42 +6,34 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import org.w3c.dom.Document;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
-import java.io.IOException;
+import TileMapper.core.util.XMLUtil;
 
+import java.net.URL;
+import java.net.MalformedURLException;
+
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
 
 public class TileMapper implements ApplicationListener {
 
 	@Override
 	public void create () 
 	{
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setValidating(true);
-	    factory.setIgnoringElementContentWhitespace(true);
-	    try 
-	    {
-	        DocumentBuilder builder = factory.newDocumentBuilder();
-	        File file = Gdx.files.internal("assets/dungeon_tiles.xml").file();
-	        Document doc = builder.parse(file);
-	        // Do something with the document here.
-	    } 
-	    catch (ParserConfigurationException e) 
-	    {
-	    	
-	    } 
-	    catch (SAXException e) 
-	    {
-	    	
-	    } 
-	    catch (IOException e) 
-	    { 
-	    	
-	    }
+		try
+		{
+			Document doc = XMLUtil.parseXML(new URL("assets/dungeon_tiles.xml"));
+		}
+		catch(MalformedURLException e)
+		{
+			Gdx.app.error("ERROR", "The Dungeon Tile file does not exist in the assets directory");
+			e.printStackTrace();
+		}
+		catch(DocumentException e)
+		{
+			Gdx.app.error("ERROR", "An error has occurred during the parsing of the XML Document");
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
