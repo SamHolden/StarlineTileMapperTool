@@ -1,0 +1,9 @@
+<textures>
+   <texture type="world">crater</texture>
+   <texture type="world">moon</texture>
+   <texture type="world">snow</texture>
+   <texture type="world">acid</texture>
+   <texture type="world">null</texture>
+   <texture type="entity">moonSugar</texture>
+   <texture type="player">player</texture>
+</textures>
