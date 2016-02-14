@@ -43,7 +43,7 @@
 	<build>
 		<resources>
 			<resource>
-				<directory>../assets</directory>
+				<directory>assets</directory>
 			</resource>
 		</resources>
 

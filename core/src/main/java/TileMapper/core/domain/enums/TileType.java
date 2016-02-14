@@ -1,5 +1,5 @@
 package TileMapper.core.domain.enums;
 
-public class TileType {
-
+public enum TileType {
+VOID, FLOOR
 }

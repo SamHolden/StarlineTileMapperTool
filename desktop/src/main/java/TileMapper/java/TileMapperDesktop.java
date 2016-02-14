@@ -7,7 +7,13 @@ import TileMapper.core.TileMapper;
 
 public class TileMapperDesktop {
 	public static void main (String[] args) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new TileMapper(), config);
+		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
+
+		cfg.title = "Starline TileMapper Tool";
+		cfg.useGL30 = true;
+		cfg.height = 1080;
+		cfg.width = 1920;
+
+		new LwjglApplication(new TileMapper(), cfg);
 	}
 }

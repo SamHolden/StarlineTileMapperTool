@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TileMapper.iml" filepath="$PROJECT_DIR$/TileMapper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core/TileMapper-core.iml" filepath="$PROJECT_DIR$/core/TileMapper-core.iml" />
     </modules>
   </component>
 </project>
