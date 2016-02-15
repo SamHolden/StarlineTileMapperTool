@@ -11,8 +11,8 @@ public class TileMapperDesktop {
 
 		cfg.title = "Starline TileMapper Tool";
 		cfg.useGL30 = true;
-		cfg.height = 1080;
-		cfg.width = 1920;
+		cfg.height = 720;
+		cfg.width = 1280;
 
 		new LwjglApplication(new TileMapper(), cfg);
 	}

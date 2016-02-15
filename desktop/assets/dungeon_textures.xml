@@ -1,4 +1,6 @@
 <textures>
    <texture>void</texture>
    <texture>void_top</texture>
+   <texture>moon</texture>
+   <texture>crater</texture>
 </textures>

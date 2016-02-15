@@ -17,4 +17,16 @@
 			<right>0</right>
 		</sides>
 	</dungeon_tile>
+   <dungeon_tile id="crater">
+		<texture_id>crater</texture_id>
+		<dungeon_type>MOON</dungeon_type>
+		<tile_type>FLOOR</tile_type>
+		<blocking>1</blocking>
+	</dungeon_tile>
+   <dungeon_tile id="moon">
+		<texture_id>moon</texture_id>
+		<dungeon_type>MOON</dungeon_type>
+		<tile_type>FLOOR</tile_type>
+		<blocking>0</blocking>
+	</dungeon_tile>
 </dungeon_tiles>

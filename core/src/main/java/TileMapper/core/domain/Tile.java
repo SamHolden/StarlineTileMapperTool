@@ -14,6 +14,8 @@ public class Tile {
 	private final boolean topBlocking, leftBlocking, rightBlocking, bottomBlocking;
 	private final Texture texture;
 
+	public final static int TILE_SIZE = 35;
+
 
 	public Tile(String id, String textureID, TileType tileType, DungeonType dungeonType,
 				  int blockingVal, Texture texture) {
