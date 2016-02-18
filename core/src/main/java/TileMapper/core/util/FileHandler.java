@@ -1,15 +1,18 @@
 package TileMapper.core.util;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import org.dom4j.Document;
-import org.dom4j.Element;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.dom4j.Document;
+import org.dom4j.Element;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+
+import TileMapper.core.domain.tile.TileMap;
 
 /**
  * Created by Sam on 13/02/2016.
@@ -23,12 +26,12 @@ public class FileHandler
     {
         return Gdx.files.internal("assets/" + fileName).file().toURI().toURL();
     }
-    
+
     public static boolean exportTileMapToFile()
     {
     	return true;
     }
-    
+
     public static Map<String, Texture> produceTextureRegistry(Document doc)
     {
         Element root = doc.getRootElement();
@@ -50,5 +53,10 @@ public class FileHandler
         }
 
         return textureRegistry;
+    }
+
+    private static TileMap loadTileMapFromFile()
+    {
+    	return null;
     }
 }

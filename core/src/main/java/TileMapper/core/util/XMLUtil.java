@@ -5,16 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import TileMapper.core.domain.tile.Tile;
-import TileMapper.core.domain.enums.DungeonType;
-import TileMapper.core.domain.enums.TileType;
-import TileMapper.core.domain.exceptions.TextureNotFoundException;
-
-import com.badlogic.gdx.graphics.Texture;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+
+import TileMapper.core.domain.enums.DungeonType;
+import TileMapper.core.domain.enums.TileType;
+import TileMapper.core.domain.exceptions.TextureNotFoundException;
+import TileMapper.core.domain.tile.Tile;
 
 public class XMLUtil
 {
@@ -24,7 +26,7 @@ public class XMLUtil
         Document document = reader.read(url);
         return document;
 	}
-	
+
 	public static Map<String,Tile> parseXMLIntoTiles(Document doc, Map<String, Texture> textureRegistry) throws TextureNotFoundException
 	{
 		Map<String,Tile> payloadMap = new HashMap<String, Tile>();
@@ -39,6 +41,7 @@ public class XMLUtil
 		int blockingVal;
 		Tile tile;
 		Texture texture;
+		Image image;
 
 		for(Element element : elementsList)
 		{
@@ -49,6 +52,7 @@ public class XMLUtil
 			dungeonType = DungeonType.valueOf(element.element("dungeon_type").getText());
 
 			texture = textureRegistry.get(id);
+			image = new Image(texture);
 
 			if(texture == null)
 			{
@@ -63,12 +67,13 @@ public class XMLUtil
 				leftBlocking = Boolean.getBoolean(blockingSides.element("left").getText());
 				rightBlocking = Boolean.getBoolean(blockingSides.element("right").getText());
 
-				tile = new Tile(id, textureId, tileType, dungeonType, blockingVal, texture, topBlocking, bottomBlocking, leftBlocking, rightBlocking);
+
+				tile = new Tile(id, textureId, tileType, dungeonType, blockingVal, texture, topBlocking, bottomBlocking, leftBlocking, rightBlocking, image);
 				payloadMap.put(id, tile);
 			}
 			else
 			{
-				tile = new Tile(id, textureId, tileType, dungeonType, blockingVal, texture);
+				tile = new Tile(id, textureId, tileType, dungeonType, blockingVal, texture, image);
 				payloadMap.put(id, tile);
 			}
 		}

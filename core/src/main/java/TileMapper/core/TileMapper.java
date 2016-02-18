@@ -1,34 +1,38 @@
 package TileMapper.core;
 
-import TileMapper.core.domain.tile.Tile;
-import TileMapper.core.domain.tile.TileRegistry;
-import TileMapper.core.domain.tile.TileIcon;
-import TileMapper.core.domain.tile.TileSelectedListener;
-import TileMapper.core.domain.exceptions.TextureNotFoundException;
-import TileMapper.core.util.FileHandler;
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-
-import TileMapper.core.util.XMLUtil;
-
 import java.net.MalformedURLException;
 import java.util.Map;
 
-import com.badlogic.gdx.graphics.GL30;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 
-public class TileMapper implements ApplicationListener 
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+
+import TileMapper.core.domain.exceptions.TextureNotFoundException;
+import TileMapper.core.domain.tile.Tile;
+import TileMapper.core.domain.tile.TileIcon;
+import TileMapper.core.domain.tile.TileMap;
+import TileMapper.core.domain.tile.TileRegistry;
+import TileMapper.core.domain.tile.TileSelectedListener;
+import TileMapper.core.util.FileHandler;
+import TileMapper.core.util.XMLUtil;
+
+public class TileMapper implements ApplicationListener
 {
 	private final int UI_WIDTH = 200;
+	private final int DEFAULT_MAP_WIDTH = 200;
+	private final int DEFAULT_MAP_HEIGHT = 200;
 
 	Map<String, Texture> textureRegistry;
 	TileRegistry tileRegistry;
@@ -43,11 +47,12 @@ public class TileMapper implements ApplicationListener
 	private Group viewport;
 
 	private Tile activeTile;
+	private TileMap activeTileMap;
 
 	@Override
-	public void create () 
+	public void create ()
 	{
-		loadResources();
+		//loadResources();
 
 		stage = new Stage(new ScreenViewport());
 
@@ -67,9 +72,9 @@ public class TileMapper implements ApplicationListener
 		table.setPosition(0, 0);
 		ui.addActor(table);
 
+		//populateTileTable();
 
-
-		populateTileTable();
+		activeTileMap = new TileMap(DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT, tileRegistry);
 
 		stage.addActor(viewport);
 		stage.addActor(ui);
@@ -86,7 +91,7 @@ public class TileMapper implements ApplicationListener
 		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
-		
+
 	}
 
 	@Override

@@ -1,8 +1,9 @@
 package TileMapper.core.domain.tile;
 
-import TileMapper.core.domain.enums.DungeonType;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
+import TileMapper.core.domain.enums.DungeonType;
 import TileMapper.core.domain.enums.TileType;
 
 public class Tile {
@@ -13,12 +14,13 @@ public class Tile {
 	private final int blockingVal;
 	private final boolean topBlocking, leftBlocking, rightBlocking, bottomBlocking;
 	private final Texture texture;
+	private final Image image;
 
 	public final static int TILE_SIZE = 35;
 
 
 	public Tile(String id, String textureID, TileType tileType, DungeonType dungeonType,
-				  int blockingVal, Texture texture) {
+				  int blockingVal, Texture texture, Image image) {
 		super();
 		this.id = id;
 		this.textureID = textureID;
@@ -26,6 +28,7 @@ public class Tile {
 		this.texture = texture;
 		this.blockingVal = blockingVal;
 		this.dungeonType = dungeonType;
+		this.image = image;
 
 		if(blockingVal == 1)
 		{
@@ -38,7 +41,7 @@ public class Tile {
 	}
 
 	public Tile(String id, String textureID, TileType tileType, DungeonType dungeonType,
-				 int blockingVal, Texture texture, boolean top, boolean bottom, boolean left, boolean right) {
+				 int blockingVal, Texture texture, boolean top, boolean bottom, boolean left, boolean right, Image image) {
 		super();
 		this.id = id;
 		this.textureID = textureID;
@@ -46,6 +49,7 @@ public class Tile {
 		this.texture = texture;
 		this.blockingVal = blockingVal;
 		this.dungeonType = dungeonType;
+		this.image = image;
 
 		topBlocking = top; leftBlocking = left; rightBlocking = right; bottomBlocking = bottom;
 	}
@@ -93,5 +97,10 @@ public class Tile {
 	public DungeonType getDungeonType()
 	{
 		return dungeonType;
+	}
+
+	public Image getImage()
+	{
+		return image;
 	}
 }
