@@ -16,6 +16,19 @@ import java.util.Map;
  */
 public class FileHandler
 {
+	private static String textureFileLocation = "assets/textures/";
+	private static String textureFileTypeExtension = ".png";
+
+    public static URL getAssetsFileURL(String fileName) throws MalformedURLException
+    {
+        return Gdx.files.internal("assets/" + fileName).file().toURI().toURL();
+    }
+    
+    public static boolean exportTileMapToFile()
+    {
+    	return true;
+    }
+    
     public static Map<String, Texture> produceTextureRegistry(Document doc)
     {
         Element root = doc.getRootElement();
@@ -30,17 +43,12 @@ public class FileHandler
         for(Element element: elementList)
         {
             textureID = element.getText();
-            fileURL = "assets/textures/" + textureID + ".png";
+            fileURL = textureFileLocation + textureID + textureFileTypeExtension;
             texture = new Texture(fileURL);
 
             textureRegistry.put(textureID, texture);
         }
 
         return textureRegistry;
-    }
-
-    public static URL getAssetsFileURL(String fileName) throws MalformedURLException
-    {
-        return Gdx.files.internal("assets/" + fileName).file().toURI().toURL();
     }
 }

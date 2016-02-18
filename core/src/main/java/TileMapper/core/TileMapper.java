@@ -1,6 +1,7 @@
 package TileMapper.core;
 
 import TileMapper.core.domain.Tile;
+import TileMapper.core.domain.TileRegistry;
 import TileMapper.core.domain.TileIcon;
 import TileMapper.core.domain.TileSelectedListener;
 import TileMapper.core.domain.exceptions.TextureNotFoundException;
@@ -29,7 +30,7 @@ public class TileMapper implements ApplicationListener
 	private final int UI_WIDTH = 200;
 
 	Map<String, Texture> textureRegistry;
-	Map<String, Tile> tileRegistry;
+	TileRegistry tileRegistry;
 
 	Stage stage;
 	Skin skin;
@@ -45,7 +46,7 @@ public class TileMapper implements ApplicationListener
 	@Override
 	public void create () 
 	{
-		loadResources();
+		//loadResources();
 
 		stage = new Stage(new ScreenViewport());
 
@@ -66,7 +67,7 @@ public class TileMapper implements ApplicationListener
 
 
 
-		populateTileTable();
+		//populateTileTable();
 
 		stage.addActor(viewport);
 		stage.addActor(ui);
@@ -109,7 +110,7 @@ public class TileMapper implements ApplicationListener
 
 			//load dungeon tiles
 			Document dungeonTileDoc = XMLUtil.loadXMLDocument(FileHandler.getAssetsFileURL("dungeon_tiles.xml"));
-			tileRegistry = XMLUtil.parseXMLIntoTiles(dungeonTileDoc, textureRegistry);
+			tileRegistry = new TileRegistry(XMLUtil.parseXMLIntoTiles(dungeonTileDoc, textureRegistry));
 
 			skin = new Skin(Gdx.files.internal("assets/ui/uiskin.json"));
 
@@ -136,7 +137,7 @@ public class TileMapper implements ApplicationListener
 	{
 		TileIcon icon;
 
-		for(Tile tile: tileRegistry.values())
+		for(Tile tile: tileRegistry.getTiles())
 		{
 			icon = new TileIcon(tile.getId(),tile.getTexture());
 
@@ -145,7 +146,7 @@ public class TileMapper implements ApplicationListener
 				public void clicked(InputEvent event, float x, float y)
 				{
 					super.clicked(event, x, y);
-					activeTile = tileRegistry.get(this.id);
+					activeTile = tileRegistry.getTile(this.id);
 					Gdx.app.log("Tile Selected", activeTile.getId());
 				}
 			});
