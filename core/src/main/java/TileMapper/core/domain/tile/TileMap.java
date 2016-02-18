@@ -1,4 +1,4 @@
-package TileMapper.core.domain;
+package TileMapper.core.domain.tile;
 
 public class TileMap
 {

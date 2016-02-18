@@ -1,4 +1,6 @@
-package TileMapper.core.domain;
+package TileMapper.core.domain.tile;
+
+import TileMapper.core.domain.tile.Tile;
 
 import java.util.Collection;
 import java.util.Map;

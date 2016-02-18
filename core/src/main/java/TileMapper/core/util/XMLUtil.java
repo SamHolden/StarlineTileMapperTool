@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import TileMapper.core.domain.Tile;
+import TileMapper.core.domain.tile.Tile;
 import TileMapper.core.domain.enums.DungeonType;
 import TileMapper.core.domain.enums.TileType;
 import TileMapper.core.domain.exceptions.TextureNotFoundException;

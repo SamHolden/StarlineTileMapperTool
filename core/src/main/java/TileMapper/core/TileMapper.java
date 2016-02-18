@@ -1,9 +1,9 @@
 package TileMapper.core;
 
-import TileMapper.core.domain.Tile;
-import TileMapper.core.domain.TileRegistry;
-import TileMapper.core.domain.TileIcon;
-import TileMapper.core.domain.TileSelectedListener;
+import TileMapper.core.domain.tile.Tile;
+import TileMapper.core.domain.tile.TileRegistry;
+import TileMapper.core.domain.tile.TileIcon;
+import TileMapper.core.domain.tile.TileSelectedListener;
 import TileMapper.core.domain.exceptions.TextureNotFoundException;
 import TileMapper.core.util.FileHandler;
 import com.badlogic.gdx.ApplicationListener;
@@ -16,6 +16,7 @@ import java.util.Map;
 
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -35,7 +36,7 @@ public class TileMapper implements ApplicationListener
 	Stage stage;
 	Skin skin;
 
-	Image tempImage;
+	Image uiImage;
 
 	private Table table;
 	private Group ui;
@@ -46,28 +47,29 @@ public class TileMapper implements ApplicationListener
 	@Override
 	public void create () 
 	{
-		//loadResources();
+		loadResources();
 
 		stage = new Stage(new ScreenViewport());
 
 		viewport = new Group();
-		viewport.addActor(tempImage);
-		viewport.setSize(Gdx.graphics.getWidth()-UI_WIDTH, Gdx.graphics.getHeight());
-		viewport.setPosition(200, 0);
+		viewport.setSize(Gdx.graphics.getWidth() - UI_WIDTH, Gdx.graphics.getHeight());
+		viewport.setPosition(UI_WIDTH, 0);
 
 		ui = new Group();
 		ui.setSize(UI_WIDTH, Gdx.graphics.getHeight());
 		ui.setPosition(0,0);
 
+		ui.addActor(uiImage);
+
 		table = new Table();
 		table.setSize(stage.getWidth(), stage.getHeight());
-		table.align(Align.left|Align.top);
+		table.align(Align.left | Align.top);
 		table.setPosition(0, 0);
 		ui.addActor(table);
 
 
 
-		//populateTileTable();
+		populateTileTable();
 
 		stage.addActor(viewport);
 		stage.addActor(ui);
@@ -114,7 +116,7 @@ public class TileMapper implements ApplicationListener
 
 			skin = new Skin(Gdx.files.internal("assets/ui/uiskin.json"));
 
-			tempImage = new Image(new Texture(Gdx.files.internal("assets/textures/planet.jpg")));
+			uiImage = new Image(new Texture(Gdx.files.internal("assets/textures/planet_ui.jpg")));
 
 		}
 		catch(MalformedURLException e)

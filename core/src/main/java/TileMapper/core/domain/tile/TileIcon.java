@@ -1,4 +1,4 @@
-package TileMapper.core.domain;
+package TileMapper.core.domain.tile;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;

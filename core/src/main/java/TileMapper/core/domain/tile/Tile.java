@@ -1,4 +1,4 @@
-package TileMapper.core.domain;
+package TileMapper.core.domain.tile;
 
 import TileMapper.core.domain.enums.DungeonType;
 import com.badlogic.gdx.graphics.Texture;
