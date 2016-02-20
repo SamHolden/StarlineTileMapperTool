@@ -30,9 +30,12 @@ import TileMapper.core.util.XMLUtil;
 
 public class TileMapper implements ApplicationListener
 {
-	private final int UI_WIDTH = 200;
+	private final int UI_WIDTH = 192;
+    private int VIEWPORT_WIDTH;
 	private final int DEFAULT_MAP_WIDTH = 200;
 	private final int DEFAULT_MAP_HEIGHT = 200;
+
+    private int cameraX = 0, cameraY = 0;
 
 	Map<String, Texture> textureRegistry;
 	TileRegistry tileRegistry;
@@ -42,7 +45,8 @@ public class TileMapper implements ApplicationListener
 
 	Image uiImage;
 
-	private Table table;
+	private Table uiTable;
+	private Table tileTable;
 	private Group ui;
 	private Group viewport;
 
@@ -52,30 +56,42 @@ public class TileMapper implements ApplicationListener
 	@Override
 	public void create ()
 	{
-		//loadResources();
+		loadResources();
 
 		stage = new Stage(new ScreenViewport());
+		activeTileMap = new TileMap(DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT, tileRegistry);
 
+		//setup viewport
 		viewport = new Group();
-		viewport.setSize(Gdx.graphics.getWidth() - UI_WIDTH, Gdx.graphics.getHeight());
+        VIEWPORT_WIDTH = Gdx.graphics.getWidth() - UI_WIDTH;
+		viewport.setSize(VIEWPORT_WIDTH, Gdx.graphics.getHeight());
 		viewport.setPosition(UI_WIDTH, 0);
 
+		//populate viewport with images
+        tileTable = new Table();
+        tileTable.setSize(VIEWPORT_WIDTH, Gdx.graphics.getHeight());
+        tileTable.align(Align.left | Align.top);
+        tileTable.setPosition(0, 0);
+        populateViewportTileMap();
+        viewport.addActor(tileTable);
+
+		//setup UI
 		ui = new Group();
 		ui.setSize(UI_WIDTH, Gdx.graphics.getHeight());
 		ui.setPosition(0,0);
 
 		ui.addActor(uiImage);
 
-		table = new Table();
-		table.setSize(stage.getWidth(), stage.getHeight());
-		table.align(Align.left | Align.top);
-		table.setPosition(0, 0);
-		ui.addActor(table);
+		//create table to hold tiles in toolbar
+		uiTable = new Table();
+		uiTable.setSize(UI_WIDTH, Gdx.graphics.getHeight());
+		uiTable.align(Align.left | Align.top);
+		uiTable.setPosition(0, 0);
+		ui.addActor(uiTable);
 
-		//populateTileTable();
+		populateTileTable();
 
-		activeTileMap = new TileMap(DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT, tileRegistry);
-
+		//add groups to stage
 		stage.addActor(viewport);
 		stage.addActor(ui);
 		Gdx.input.setInputProcessor(stage);
@@ -158,7 +174,25 @@ public class TileMapper implements ApplicationListener
 				}
 			});
 
-			table.add(icon);
+			uiTable.add(icon);
 		}
 	}
+
+    private void populateViewportTileMap()
+    {
+        TileIcon tileIcon;
+
+        System.out.println(VIEWPORT_WIDTH + " " + Tile.TILE_SIZE + " " + VIEWPORT_WIDTH/Tile.TILE_SIZE);
+
+        for(int y = 0; y < viewport.getHeight()/Tile.TILE_SIZE; y++)
+        {
+            for(int x = 0; x < VIEWPORT_WIDTH/Tile.TILE_SIZE; x++)
+            {
+                tileIcon = new TileIcon("null",textureRegistry.get("null"));
+
+                tileTable.add(tileIcon);
+            }
+            tileTable.row();
+        }
+    }
 }

@@ -11,6 +11,7 @@ public class TileMap
 		mapWidth = width;
 		mapHeight = height;
 		map = new Tile[mapWidth][mapHeight];
+        this.tileRegistry = tileRegistry;
 		generateVoidTileMap();
 	}
 

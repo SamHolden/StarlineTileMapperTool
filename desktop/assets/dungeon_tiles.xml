@@ -29,4 +29,10 @@
 		<tile_type>FLOOR</tile_type>
 		<blocking>0</blocking>
 	</dungeon_tile>
+   <dungeon_tile id="null">
+		<texture_id>null</texture_id>
+		<dungeon_type>VOID</dungeon_type>
+		<tile_type>FLOOR</tile_type>
+		<blocking>1</blocking>
+	</dungeon_tile>
 </dungeon_tiles>

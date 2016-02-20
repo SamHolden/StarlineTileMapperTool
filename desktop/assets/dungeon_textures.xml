@@ -3,4 +3,5 @@
    <texture>void_top</texture>
    <texture>moon</texture>
    <texture>crater</texture>
+   <texture>null</texture>
 </textures>

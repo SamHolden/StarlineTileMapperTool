@@ -16,7 +16,7 @@ public class Tile {
 	private final Texture texture;
 	private final Image image;
 
-	public final static int TILE_SIZE = 35;
+	public final static int TILE_SIZE = 32;
 
 
 	public Tile(String id, String textureID, TileType tileType, DungeonType dungeonType,
