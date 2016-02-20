@@ -3,6 +3,7 @@ package TileMapper.core;
 import java.net.MalformedURLException;
 import java.util.Map;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 
@@ -32,6 +33,7 @@ public class TileMapper implements ApplicationListener
 {
 	private final int UI_WIDTH = 192;
     private int VIEWPORT_WIDTH;
+    private final int VIEWPORT_HEIGHT = 768;
 	private final int DEFAULT_MAP_WIDTH = 200;
 	private final int DEFAULT_MAP_HEIGHT = 200;
 
@@ -44,11 +46,10 @@ public class TileMapper implements ApplicationListener
 	Skin skin;
 
 	Image uiImage;
+    SpriteBatch batch;
 
 	private Table uiTable;
-	private Table tileTable;
 	private Group ui;
-	private Group viewport;
 
 	private Tile activeTile;
 	private TileMap activeTileMap;
@@ -57,23 +58,12 @@ public class TileMapper implements ApplicationListener
 	public void create ()
 	{
 		loadResources();
+        batch = new SpriteBatch();
+        VIEWPORT_WIDTH = Gdx.graphics.getWidth() - UI_WIDTH;
+        activeTile = tileRegistry.getTile("void");
 
 		stage = new Stage(new ScreenViewport());
 		activeTileMap = new TileMap(DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT, tileRegistry);
-
-		//setup viewport
-		viewport = new Group();
-        VIEWPORT_WIDTH = Gdx.graphics.getWidth() - UI_WIDTH;
-		viewport.setSize(VIEWPORT_WIDTH, Gdx.graphics.getHeight());
-		viewport.setPosition(UI_WIDTH, 0);
-
-		//populate viewport with images
-        tileTable = new Table();
-        tileTable.setSize(VIEWPORT_WIDTH, Gdx.graphics.getHeight());
-        tileTable.align(Align.left | Align.top);
-        tileTable.setPosition(0, 0);
-        populateViewportTileMap();
-        viewport.addActor(tileTable);
 
 		//setup UI
 		ui = new Group();
@@ -92,7 +82,6 @@ public class TileMapper implements ApplicationListener
 		populateTileTable();
 
 		//add groups to stage
-		stage.addActor(viewport);
 		stage.addActor(ui);
 		Gdx.input.setInputProcessor(stage);
 	}
@@ -105,8 +94,27 @@ public class TileMapper implements ApplicationListener
 	@Override
 	public void render () {
 		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+
+        if(Gdx.input.isTouched())
+        {
+            //only activate if the click is within the tile map
+            if(Gdx.input.getX() > UI_WIDTH)
+            {
+                int tileX = (getCameraRelativeX()/Tile.TILE_SIZE) + (int)(Gdx.input.getX()/Tile.TILE_SIZE);
+               // int tileY = (cameraY/Tile.TILE_SIZE) + (int)(Gdx.input.getY()/Tile.TILE_SIZE);
+                int tileY = ((int)Math.floor((cameraY + Math.abs(VIEWPORT_HEIGHT - Gdx.input.getY()))/Tile.TILE_SIZE));
+
+                //int yOrigin = (cameraY - (VIEWPORT_HEIGHT/2));
+                //int tileY = (int)Math.floor((yOrigin + Math.abs(VIEWPORT_HEIGHT - Gdx.input.getY())) / Tile.TILE_SIZE);
+
+                activeTileMap.setTile(tileX, tileY, activeTile);
+            }
+        }
+
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
+
+        drawTileMap(batch);
 
 	}
 
@@ -159,6 +167,7 @@ public class TileMapper implements ApplicationListener
 	private void populateTileTable()
 	{
 		TileIcon icon;
+        int counter = 0;
 
 		for(Tile tile: tileRegistry.getTiles())
 		{
@@ -175,24 +184,33 @@ public class TileMapper implements ApplicationListener
 			});
 
 			uiTable.add(icon);
+
+            counter++;
+            if(counter % 6 == 0)
+            {
+                uiTable.row();
+            }
 		}
 	}
 
-    private void populateViewportTileMap()
+    private void drawTileMap(SpriteBatch batch)
     {
-        TileIcon tileIcon;
+        Tile tile;
 
-        System.out.println(VIEWPORT_WIDTH + " " + Tile.TILE_SIZE + " " + VIEWPORT_WIDTH/Tile.TILE_SIZE);
-
-        for(int y = 0; y < viewport.getHeight()/Tile.TILE_SIZE; y++)
+        batch.begin();
+        for(int y = 0; y < VIEWPORT_HEIGHT/Tile.TILE_SIZE; y++)
         {
             for(int x = 0; x < VIEWPORT_WIDTH/Tile.TILE_SIZE; x++)
             {
-                tileIcon = new TileIcon("null",textureRegistry.get("null"));
-
-                tileTable.add(tileIcon);
+                tile = activeTileMap.getTile(x + (cameraX/Tile.TILE_SIZE), y + (cameraY/Tile.TILE_SIZE));
+                batch.draw(tile.getTexture(), UI_WIDTH + (x*Tile.TILE_SIZE), y*Tile.TILE_SIZE);
             }
-            tileTable.row();
         }
+        batch.end();
+    }
+
+    private int getCameraRelativeX()
+    {
+        return cameraX - UI_WIDTH;
     }
 }

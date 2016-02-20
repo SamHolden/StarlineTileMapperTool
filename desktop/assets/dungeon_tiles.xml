@@ -5,18 +5,6 @@
 		<tile_type>VOID</tile_type>
 		<blocking>1</blocking>
 	</dungeon_tile>
-	<dungeon_tile id="void_top">
-		<texture_id>void_top</texture_id>
-		<dungeon_type>VOID</dungeon_type>
-		<tile_type>VOID</tile_type>
-		<blocking>2</blocking>
-		<sides>
-			<top>1</top>
-			<bottom>0</bottom>
-			<left>0</left>
-			<right>0</right>
-		</sides>
-	</dungeon_tile>
    <dungeon_tile id="crater">
 		<texture_id>crater</texture_id>
 		<dungeon_type>MOON</dungeon_type>
@@ -34,5 +22,47 @@
 		<dungeon_type>VOID</dungeon_type>
 		<tile_type>FLOOR</tile_type>
 		<blocking>1</blocking>
+	</dungeon_tile>
+   <dungeon_tile id="orange">
+		<texture_id>orange</texture_id>
+		<dungeon_type>VOID</dungeon_type>
+		<tile_type>FLOOR</tile_type>
+		<blocking>0</blocking>
+	</dungeon_tile>
+   <dungeon_tile id="front_male">
+		<texture_id>front_male</texture_id>
+		<dungeon_type>VOID</dungeon_type>
+		<tile_type>FLOOR</tile_type>
+		<blocking>0</blocking>
+	</dungeon_tile>
+   <dungeon_tile id="front_female">
+		<texture_id>front_female</texture_id>
+		<dungeon_type>VOID</dungeon_type>
+		<tile_type>FLOOR</tile_type>
+		<blocking>0</blocking>
+	</dungeon_tile>
+   <dungeon_tile id="platinum">
+		<texture_id>platinum</texture_id>
+		<dungeon_type>VOID</dungeon_type>
+		<tile_type>FLOOR</tile_type>
+		<blocking>1</blocking>
+	</dungeon_tile>
+   <dungeon_tile id="titanium">
+		<texture_id>titanium</texture_id>
+		<dungeon_type>VOID</dungeon_type>
+		<tile_type>FLOOR</tile_type>
+		<blocking>0</blocking>
+	</dungeon_tile>
+   <dungeon_tile id="tungsten">
+		<texture_id>tungsten</texture_id>
+		<dungeon_type>VOID</dungeon_type>
+		<tile_type>FLOOR</tile_type>
+		<blocking>0</blocking>
+	</dungeon_tile>
+   <dungeon_tile id="uranium">
+		<texture_id>uranium</texture_id>
+		<dungeon_type>VOID</dungeon_type>
+		<tile_type>FLOOR</tile_type>
+		<blocking>0</blocking>
 	</dungeon_tile>
 </dungeon_tiles>

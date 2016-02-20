@@ -1,7 +1,13 @@
 <textures>
    <texture>void</texture>
-   <texture>void_top</texture>
    <texture>moon</texture>
    <texture>crater</texture>
    <texture>null</texture>
+   <texture>orange</texture>
+   <texture>front_female</texture>
+   <texture>front_male</texture>
+   <texture>platinum</texture>
+   <texture>titanium</texture>
+   <texture>tungsten</texture>
+   <texture>uranium</texture>
 </textures>
