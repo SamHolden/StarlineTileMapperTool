@@ -3,6 +3,7 @@ package TileMapper.core;
 import java.net.MalformedURLException;
 import java.util.Map;
 
+import box2dLight.RayHandler;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -44,6 +45,7 @@ public class TileMapper implements ApplicationListener
 
 	Stage stage;
 	Skin skin;
+	RayHandler rayHandler;
 
 	Image uiImage;
     SpriteBatch batch;
@@ -95,21 +97,7 @@ public class TileMapper implements ApplicationListener
 	public void render () {
 		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
-        if(Gdx.input.isTouched())
-        {
-            //only activate if the click is within the tile map
-            if(Gdx.input.getX() > UI_WIDTH)
-            {
-                int tileX = (getCameraRelativeX()/Tile.TILE_SIZE) + (int)(Gdx.input.getX()/Tile.TILE_SIZE);
-               // int tileY = (cameraY/Tile.TILE_SIZE) + (int)(Gdx.input.getY()/Tile.TILE_SIZE);
-                int tileY = ((int)Math.floor((cameraY + Math.abs(VIEWPORT_HEIGHT - Gdx.input.getY()))/Tile.TILE_SIZE));
-
-                //int yOrigin = (cameraY - (VIEWPORT_HEIGHT/2));
-                //int tileY = (int)Math.floor((yOrigin + Math.abs(VIEWPORT_HEIGHT - Gdx.input.getY())) / Tile.TILE_SIZE);
-
-                activeTileMap.setTile(tileX, tileY, activeTile);
-            }
-        }
+		handleInput();
 
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
@@ -128,7 +116,8 @@ public class TileMapper implements ApplicationListener
 
 	@Override
 	public void dispose () {
-		stage.dispose();
+		rayHandler.dispose();
+        stage.dispose();
 	}
 
 	private void loadResources()
@@ -213,4 +202,19 @@ public class TileMapper implements ApplicationListener
     {
         return cameraX - UI_WIDTH;
     }
+
+	private void handleInput()
+	{
+		if(Gdx.input.isTouched())
+		{
+			//only activate if the click is within the tile map
+			if(Gdx.input.getX() > UI_WIDTH)
+			{
+				int tileX = (getCameraRelativeX()/Tile.TILE_SIZE) + (int)(Gdx.input.getX()/Tile.TILE_SIZE);
+				int tileY = ((int)Math.floor((cameraY + Math.abs(VIEWPORT_HEIGHT - Gdx.input.getY()))/Tile.TILE_SIZE));
+
+				activeTileMap.setTile(tileX, tileY, activeTile);
+			}
+		}
+	}
 }
